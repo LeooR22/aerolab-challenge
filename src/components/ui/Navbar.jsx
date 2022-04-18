@@ -23,7 +23,9 @@ export const Navbar = () => {
           justifyContent: "start",
         }}
       >
-        <Image src={logo} alt="icono aerolab" width={70} height={70} />
+        <LinkReact to="/">
+          <Image src={logo} alt="icono aerolab" width={70} height={70} />
+        </LinkReact>
 
         <Spacer css={{ flex: 1 }} />
         <Text
