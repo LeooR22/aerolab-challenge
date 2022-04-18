@@ -1,16 +1,16 @@
-import { Container, Image, Spacer, Text } from "@nextui-org/react";
 import React, { useContext } from "react";
 import { Link as LinkReact } from "react-router-dom";
-import logo from "./aerolab-logotipo.png";
-import "../../styles.css";
-import coin from "../Products/coin.png";
+
+import { Container, Image, Spacer, Text } from "@nextui-org/react";
 
 import UserContext from "../../context/UserContext";
 
+import logo from "../../assets/aerolab-logotipo.png";
+import coin from "../../assets/coin.png";
+import "../../styles.css";
+
 export const Navbar = () => {
   const { userData } = useContext(UserContext);
-
-  // console.log(userData);
 
   return (
     <Container md>
@@ -51,6 +51,7 @@ export const Navbar = () => {
             style={{ marginRight: 5, marginLeft: 10 }}
             src={coin}
             width="25px"
+            alt="coin aero"
           />
         </Text>
         <LinkReact to="/">

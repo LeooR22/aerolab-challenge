@@ -13,7 +13,6 @@ export const HomePage = () => {
         <img src={banner} alt="banner" />
       </Container>
 
-      <Image src="../../public/assets/Icons.png" />
       <ProductsGrid />
     </>
   );

@@ -1,18 +1,19 @@
-import { Button, Card, Divider, Grid, Loading, Text } from "@nextui-org/react";
 import { useContext, useState } from "react";
-import UserContext from "../../context/UserContext";
-import { fetchApi } from "../../helpers/fetchApi";
-import "../../styles.css";
 
-import coin from "./coin.png";
+import { Card, Divider, Grid, Text } from "@nextui-org/react";
+
+import { ButtonsLogic } from "./buttons";
+import { fetchApi } from "../../helpers/fetchApi";
+import UserContext from "../../context/UserContext";
+
+import "../../styles.css";
 
 export const ProductCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
-  const { category, cost, img, name, _id } = product;
+  const { category, cost, img, name } = product;
   const { userData, setUserData } = useContext(UserContext);
 
   const HandleRedeem = (id) => {
-    // console.log("Redeem", id);
     setLoading(true);
     fetchApi("redeem", { productId: id }, "POST").then((data) => {
       console.log(data);
@@ -49,43 +50,12 @@ export const ProductCard = ({ product }) => {
           </Text>
         </Card.Body>
       </Card>
-      {!loading ? (
-        <>
-          {userData.points >= cost ? (
-            <Button
-              onClick={() => HandleRedeem(_id, setLoading)}
-              color={"gradient"}
-              css={{ marginTop: 10 }}
-            >
-              Redeem for {cost}{" "}
-              <img
-                src={coin}
-                style={{ height: "10%", width: "10%", marginLeft: "15px" }}
-                alt={name}
-              />
-            </Button>
-          ) : (
-            <Button disabled color={"warning"} css={{ marginTop: 10 }}>
-              You need + {cost - userData.points}
-              <img
-                src={coin}
-                style={{ height: "10%", width: "10%", marginLeft: "15px" }}
-                alt={name}
-              />
-            </Button>
-          )}
-        </>
-      ) : (
-        <Button
-          disabled
-          auto
-          bordered
-          color="default"
-          css={{ px: "$13", marginTop: 10 }}
-        >
-          <Loading type="points" color="primary" size="sm" />
-        </Button>
-      )}
+      <ButtonsLogic
+        loading={loading}
+        userData={userData}
+        HandleRedeem={HandleRedeem}
+        product={product}
+      />
     </Grid>
   );
 };
